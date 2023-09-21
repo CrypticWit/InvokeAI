@@ -98,6 +98,7 @@ export const initialNodesState: NodesState = {
   shouldSnapToGrid: false,
   shouldColorEdges: true,
   isAddNodePopoverOpen: false,
+  nodePopoverOpenMousePosition: { x: 0, y: 0 },
   nodeOpacity: 1,
   selectedNodes: [],
   selectedEdges: [],
@@ -150,10 +151,13 @@ const nodesSlice = createSlice({
       >
     ) => {
       const node = action.payload;
+
+      const xOffset = 0.15 * (node.width ?? 0);
+      const yOffset = 0.5 * (node.height ?? 0);
       const position = findUnoccupiedPosition(
         state.nodes,
-        node.position.x,
-        node.position.y
+        state.nodePopoverOpenMousePosition.x + xOffset,
+        state.nodePopoverOpenMousePosition.y + yOffset
       );
       node.position = position;
       node.selected = true;
@@ -814,6 +818,7 @@ const nodesSlice = createSlice({
     },
     addNodePopoverOpened: (state) => {
       state.isAddNodePopoverOpen = true;
+      state.nodePopoverOpenMousePosition = state.mousePosition;
     },
     addNodePopoverClosed: (state) => {
       state.isAddNodePopoverOpen = false;

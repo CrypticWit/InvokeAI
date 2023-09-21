@@ -13,6 +13,7 @@ import {
   NodeData,
   NodeExecutionState,
   Workflow,
+  XYPosition,
 } from '../types/types';
 
 export type NodesState = {
@@ -39,5 +40,6 @@ export type NodesState = {
   nodesToCopy: Node<NodeData>[];
   edgesToCopy: Edge<InvocationEdgeExtra>[];
   isAddNodePopoverOpen: boolean;
+  nodePopoverOpenMousePosition: XYPosition;
   selectionMode: SelectionMode;
 };
